@@ -1,0 +1,13 @@
+#!/bin/bash
+
+TEMPDIR=$(mktemp -d)
+cd $TEMPDIR
+subl script.py
+
+echo "Starting executing loop"
+
+while inotifywait -q -r -e modify --exclude .git .; do 
+	clear
+	echo "> python3 $(realpath script.py)"
+	python3 script.py
+done
